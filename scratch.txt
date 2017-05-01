@@ -1,1 +1,12 @@
 Get-WmiObject -ComputerName $FIMSyncServer -NameSpace 'root/MicrosoftIdentityIntegrationServer' -Class 'MIIS_RunHistory'
+
+
+$saveTillTimeDate = watermark
+$runStartTimesStrings= Get all Run Start times via WMI query
+
+$runStartTimesCreate customer powershell object with String dates saved as dateTime format
+Convert to DateTime array
+
+filter/sort array to date times to be deleted
+
+ClearRuns on those dateTimes
