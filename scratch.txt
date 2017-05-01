@@ -1,0 +1,1 @@
+Get-WmiObject -ComputerName $FIMSyncServer -NameSpace 'root/MicrosoftIdentityIntegrationServer' -Class 'MIIS_RunHistory'
