@@ -10,3 +10,33 @@ Convert to DateTime array
 filter/sort array to date times to be deleted
 
 ClearRuns on those dateTimes
+
+ 
+
+$saveTillDateTime = (get-date).AddDays(-4)
+
+$runStartTimesStrings=Get-WmiObject -ComputerName . -NameSpace 'root/MicrosoftIdentityIntegrationServer' -Query "Select RunStartTime From MIIS_RunHistory"
+
+$runStartTimes = @()
+
+foreach ($runStartTimeString in $runStartTimesStrings) {
+		
+	$row = New-Object -Type PSObject -Property @{
+	   	runStartTimeString = $runStartTimeString.RunStartTime
+        runStartTimeLocal = ([datetime]($runStartTimeString.RunStartTime)).AddHours(-4)
+		runStartTime = [datetime]($runStartTimeString.RunStartTime)
+
+	}
+		
+$runStartTimes += $row
+	
+}
+
+$runHistoryToDelete = $runStartTimes | Where-Object {$_.runStartTime -lt $saveTillDateTime  } | Sort-Object -Property runStartTime | Select-Object -First 1 
+
+$runHistoryToDelete 
+
+　
+(get-wmiobject -class "MIIS_SERVER" -namespace "root\MicrosoftIdentityIntegrationServer" -computer .).ClearRuns($runHistoryToDelete.runStartTimeString).ReturnValue
+
+(get-wmiobject -class "MIIS_SERVER" -namespace "root\MicrosoftIdentityIntegrationServer" -computer .).ClearRuns("2017-04-22 0 
