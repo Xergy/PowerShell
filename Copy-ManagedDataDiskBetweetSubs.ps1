@@ -1,4 +1,4 @@
-﻿### Script: 1. Copies a Managed Disk from one Sub into another 2: Attaches to a Target VM
+﻿### Script: 1. Copies a Managed Disk from one Sub in to another 2: Attaches to a Target VM
 
 #region Initialize
 
@@ -59,7 +59,7 @@ Connect-AzureRmAccount -Environment AzureUSGovernment}
 
 #endregion
 
-#region Copy Disk Disk to Target Subscription and Resource Group
+#region Copy Disk to Target Subscription and Resource Group
 
     # Create a new managed disk in the target subscription and resource group
     $diskConfig = New-AzureRmDiskConfig -SourceResourceId $managedDisk.Id -Location $managedDisk.Location -CreateOption Copy 
